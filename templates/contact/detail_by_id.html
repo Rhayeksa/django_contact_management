@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+<div>{% block apps %}</div>
+<div>{% include "components/navbar/index.html" %}</div>
+
+<div class="container-fluid">
+  <div class="card border-primary">
+    <div class="card-header text-bg-primary">
+      <div class="row row-cols-auto">
+        <div class="col h3 me-auto">Detail Contact</div>
+        <div class="col">
+          <a href="#" class="btn btn-outline-light me-3" title="Edit">
+            {% include "components/svg_edit.html" %}
+          </a>
+          <button
+            type="button"
+            class="btn btn-outline-light"
+            data-bs-toggle="modal"
+            data-bs-target="#modalDeleteData"
+            title="Delete"
+          >
+            {% include "components/svg_delete.html" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <fieldset disabled="disabled">
+        <div class="row mb-3">
+          <div class="col">
+            <label class="mb-2">Name</label>
+            <input class="form-control" value="{{data.nama}}" />
+          </div>
+          <div class="col">
+            <label class="mb-2">Email</label>
+            <input class="form-control" value="{{data.email}}" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="mb-2">Gender</label>
+            <input class="form-control" value="{{data.gender}}" />
+          </div>
+          <div class="col">
+            <label class="mb-2">Phone</label>
+            <input class="form-control" value="{{data.phone}}" />
+          </div>
+        </div>
+        <div>
+          <label class="mb-2">Alamat</label>
+          <textarea class="form-control" rows="10">{{data.alamat}}</textarea>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>
+<div>{% endblock apps %}</div>

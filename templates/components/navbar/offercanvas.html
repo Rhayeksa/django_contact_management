@@ -1,0 +1,48 @@
+<button
+  class="navbar-toggler"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasDarkNavbar"
+  aria-controls="offcanvasDarkNavbar"
+  aria-label="Toggle navigation"
+>
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div
+  class="offcanvas offcanvas-end text-bg-primary"
+  tabindex="-1"
+  id="offcanvasDarkNavbar"
+  aria-labelledby="offcanvasDarkNavbarLabel"
+>
+  <div class="offcanvas-header">
+    <h6 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+      Hello {{user}}. Have a nice day
+    </h6>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <hr />
+    <div class="list-group">
+      <a
+        href="{% url 'contact:index' %}"
+        class="list-group-item list-group-item-action"
+      >
+        {% include "components/svg_home.html" %} Home
+      </a>
+      <a
+        href="{% url 'contact:add' %}"
+        class="list-group-item list-group-item-action"
+        >{% include "components/svg_add_contact.html" %}Create New Contact</a
+      >
+    </div>
+    <hr />
+    <div class="d-grid gap-2">
+      <a href="#" class="border btn btn-primary">Logout</a>
+    </div>
+  </div>
+</div>

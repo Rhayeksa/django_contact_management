@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+<div>{% block apps %}</div>
+<div>{% include "components/navbar/index.html" %}</div>
+
+<div class="container-fluid">
+  <div class="card border-primary">
+    <div class="card-header text-bg-primary">
+      <div class="row row-cols-auto">
+        <div class="col h3 me-auto">Contacts</div>
+        <div class="col mt-1">
+          <a
+            href="{% url 'contact:add' %}"
+            class="btn btn-outline-light"
+            title="Create New Contact"
+          >
+            {% include "components/svg_plus.html" %}
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive-xxl">
+        <table class="table">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col" style="min-width: 250px">Nama</th>
+              <th scope="col" style="min-width: 250px">Phone</th>
+              <th scope="col" style="min-width: 250px">Email</th>
+              <th scope="col" style="min-width: 150px">Gender</th>
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr>
+              <th scope="row" class="text-center">{{forloop.counter}}</th>
+              <td>{{i.name}}</td>
+              <td>{{i.phone}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.gender}}</td>
+              <td class="text-center" style="width: 0px">
+                <a
+                  href="{% url 'contact:detail' i.id %}"
+                  class="btn btn-primary"
+                  title="Detail"
+                >
+                  {% include "components/svg_view.html" %}
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div>{% if data.has_other_pages %}</div>
+        <ul class="pagination">
+          <div>{% if data.has_previous %}</div>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ data.previous_page_number }}"
+              >Previous</a
+            >
+          </li>
+          <div>{% else %}</div>
+          <li class="disabled page-item">
+            <a class="page-link" href="#">Previous</a>
+          </li>
+          <div>{% endif %}</div>
+
+          <div>{% for i in data.paginator.page_range %}</div>
+          <div>{% if data.number == i %}</div>
+          <li class="active page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          <div>{% else %}</div>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          <div>{% endif %}</div>
+          <div>{% endfor %}</div>
+
+          <div>{% if data.has_next %}</div>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ data.next_page_number }}"
+              >Next</a
+            >
+          </li>
+          <div>{% else %}</div>
+          <li class="disabled page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+          <div>{% endif %}</div>
+        </ul>
+        <div>{% endif %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>{% endblock apps %}</div>
