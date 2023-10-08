@@ -4,7 +4,7 @@
 <div>{% include "components/navbar/index.html" %}</div>
 
 <div class="container-fluid">
-  <form class="g-3" method="post">
+  <form class="g-3" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="card border-primary">
       <div class="card-header text-bg-primary">
@@ -21,43 +21,56 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="row mb-3">
+        <div class="row">
           <div class="col">
-            <div class="mb-2">
-              {{form.nama.label}} <span class="text-danger">*</span>
+            <div class="mb-3">
+              <div class="mb-2">
+                {{data.name.label}} <span class="text-danger">*</span>
+              </div>
+              {{data.name}}
+              <div class="text-danger">{{data.name.errors}}</div>
             </div>
-            {{form.nama}}
-            <div class="text-danger">{{form.nama.errors}}</div>
+
+            <div class="mb-3">
+              <div class="mb-2">
+                {{data.phone.label}} <span class="text-danger">*</span>
+              </div>
+              {{data.phone}}
+              <div class="text-danger">{{data.phone.errors}}</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="mb-2">
+                {{data.email.label}} <span class="text-danger">*</span>
+              </div>
+              {{data.email}}
+              <div class="text-danger">{{data.email.errors}}</div>
+            </div>
           </div>
           <div class="col">
-            <div class="mb-2">
-              {{form.email.label}} <span class="text-danger">*</span>
+            <div class="mb-3">
+              <div class="mb-2">{{data.gender.label}}</div>
+              {{data.gender}}
+              <div class="text-danger">{{data.gender.errors}}</div>
             </div>
-            {{form.email}}
-            <div class="text-danger">{{form.email.errors}}</div>
+
+            <div class="mb-3">
+              <div class="mb-2">{{data.birthday.label}}</div>
+              {{data.birthday}}
+              <div class="text-danger">{{data.birthday.errors}}</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="mb-2">{{data.picture.label}}</div>
+              {{data.picture}}
+              <div class="text-danger">{{data.picture.errors}}</div>
+            </div>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col">
-            <div class="mb-2">
-              {{form.gender.label}} <span class="text-danger">*</span>
-            </div>
-            {{form.gender}}
-            <div class="text-danger">{{form.gender.errors}}</div>
-          </div>
-          <div class="col">
-            <div class="mb-2">
-              {{form.phone.label}} <span class="text-danger">*</span>
-            </div>
-            {{form.phone}}
-            <div class="text-danger">{{form.phone.errors}}</div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <div class="mb-2">{{form.alamat.label}}</div>
-          {{form.alamat}}
-          <div class="text-danger">{{form.alamat.errors}}</div>
-        </div>
+
+        <div class="mb-2">{{data.address.label}}</div>
+        {{data.address}}
+        <div class="text-danger">{{data.address.errors}}</div>
       </div>
     </div>
   </form>
