@@ -8,26 +8,50 @@ from .models import Contact as ContactModel
 
 
 def add(request):
-    form = ContactForm(request.POST or None)
 
     if request.method == "POST":
-        if form.is_valid():
-            form.save()
+        data = ContactForm(data=request.POST, files=request.FILES)
+        if data.is_valid():
+            data.save()
             return redirect(to="contact:index")
+    else:
+        data = ContactForm()
 
-    return render(request=request, template_name="contact/add.html", context={"form": form})
+    return render(request=request, template_name="contact/add.html", context={"data": data})
 
 
 def delete(request, id):
-    return render(request=request, template_name=None, context={})
+    ContactModel.objects.filter(id=id).delete()
+    return redirect(to="contact:index")
 
 
 def detail(request, id):
-    return render(request=request, template_name="contact/detail_by_id.html", context={})
+    model = ContactModel.objects.get(id=id)
+
+    data = {
+        "form": ContactForm(instance=model),
+        "model": model,
+    }
+
+    return render(request=request, template_name="contact/detail_by_id/index.html", context={"data": data})
 
 
 def edit(request, id):
-    return render(request=request, template_name="contact/edit_by_id.html", context={})
+    model = ContactModel.objects.get(id=id)
+
+    if request.method == "POST":
+        form = ContactForm(
+            data=request.POST,
+            files=request.FILES,
+            instance=model
+        )
+        if form.is_valid():
+            form.save()
+            return redirect(to="contact:detail", id=model.id)
+    else:
+        form = ContactForm(instance=model)
+
+    return render(request=request, template_name="contact/edit_by_id.html", context={"data": form})
 
 
 def index(request):
@@ -43,4 +67,4 @@ def index(request):
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
 
-    return render(request=request, template_name="contact/index.html", context={"data": model})
+    return render(request=request, template_name="contact/index.html", context={"data": data})
